@@ -1,16 +1,18 @@
-﻿namespace Pieces
-{
-    public class Piece
-    {
-        public abstract class Piece
-        {
-            public PieceColor Color;
-            public abstract Tile Tile { get; }
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
 
-            protect Piece(PieceColor color)
-            {
-                
-            }
+namespace Pieces
+{
+    public abstract class Piece
+    {
+        public PieceColor Color;
+        public abstract Tile Tile { get; }
+
+        protected Piece(PieceColor color)
+        {
+            this.Color = color;
         }
+        public abstract List<Vector2Int> GetMovements();
     }
 }
