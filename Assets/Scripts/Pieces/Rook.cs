@@ -8,42 +8,55 @@ namespace Pieces
     {
 
         public override Tile Tile => Color == PieceColor.White ? GameManager.Instance.WhiteRookTile : GameManager.Instance.BlackRookTile;
-        public override List<Vector2Int> GetMovements()
+        public Rook(PieceColor color) : base(color) { }
+        public override List<Vector2Int> GetMovements(Piece[,] pieces)
         {
-            List <Vector2Int> movements = new List <Vector2Int>();
+            List<Vector2Int> movements = new List<Vector2Int>();
 
-            movements.Add(new Vector2Int(-1, 0));
-            movements.Add(new Vector2Int(-2, 0));
-            movements.Add(new Vector2Int(-3, 0));
-            movements.Add(new Vector2Int(-4, 0));
-            movements.Add(new Vector2Int(-5, 0));
-            movements.Add(new Vector2Int(-6, 0));
-            movements.Add(new Vector2Int(-7, 0));
-            movements.Add(new Vector2Int(0, -1));
-            movements.Add(new Vector2Int(0, -2));
-            movements.Add(new Vector2Int(0, -3));
-            movements.Add(new Vector2Int(0, -4));
-            movements.Add(new Vector2Int(0, -5));
-            movements.Add(new Vector2Int(0, -6));
-            movements.Add(new Vector2Int(0, -7));
-            movements.Add(new Vector2Int(1, 0));
-            movements.Add(new Vector2Int(2, 0));
-            movements.Add(new Vector2Int(3, 0));
-            movements.Add(new Vector2Int(4, 0));
-            movements.Add(new Vector2Int(5, 0));
-            movements.Add(new Vector2Int(6, 0));
-            movements.Add(new Vector2Int(7, 0));
-            movements.Add(new Vector2Int(0, 1));
-            movements.Add(new Vector2Int(0, 2));
-            movements.Add(new Vector2Int(0, 3));
-            movements.Add(new Vector2Int(0, 4));
-            movements.Add(new Vector2Int(0, 5));
-            movements.Add(new Vector2Int(0, 6));
-            movements.Add(new Vector2Int(0, 7));
+            // Right Movements
+            
+            for (int i = Position.x + 1; i < 8; i++)
+            {
+                Vector2Int movement = new Vector2Int(i, Position.y);
+                Piece otherPiece = pieces[movement.x, movement.y];
+                if (otherPiece != null && otherPiece.Color == Color)
+                    break;
+                movements.Add(movement);
+                if (otherPiece != null && otherPiece.Color != Color) break;
+            }
+            // Left Movements
+            for (int i = Position.x - 1; i >= 0; i--)
+            {
+                Vector2Int movement = new Vector2Int(i, Position.y);
+                Piece otherPiece = pieces[movement.x, movement.y];
+                if (otherPiece != null && otherPiece.Color == Color)
+                    break;
+                movements.Add(movement);
+                if (otherPiece != null && otherPiece.Color != Color) break;
+            }
+            //Down Movements
+            for (int i = Position.y - 1; i >= 0; i--)
+            {
+                Vector2Int movement = new Vector2Int(Position.x, i);
+                Piece otherPiece = pieces[movement.x, movement.y];
+                if (otherPiece != null && otherPiece.Color == Color)
+                    break;
+                movements.Add(movement);
+                if (otherPiece != null && otherPiece.Color != Color) break;
+            }
+            //Up Movements
+            for (int i = Position.y + 1; i < 8; i++)
+            {
+                Vector2Int movement = new Vector2Int(Position.x, i);
+                Piece otherPiece = pieces[movement.x, movement.y];
+                if (otherPiece != null && otherPiece.Color == Color)
+                    break;
+                movements.Add(movement);
+                if (otherPiece != null && otherPiece.Color != Color) break;
+            }
 
             return movements;
         }
 
-        public Rook(PieceColor color) : base(color) { }
     }
 }

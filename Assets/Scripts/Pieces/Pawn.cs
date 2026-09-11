@@ -10,7 +10,7 @@ namespace Pieces
             ? GameManager.Instance.WhitePawnTile
             : GameManager.Instance.BlackPawnTile;
 
-        public override List<Vector2Int> GetMovements()
+        public override List<Vector2Int> GetMovements(Piece[,] pieces)
         {
             List<Vector2Int> movements = new List<Vector2Int>();
             if (Color == PieceColor.White)

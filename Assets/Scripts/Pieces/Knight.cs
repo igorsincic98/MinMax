@@ -7,7 +7,7 @@ namespace Pieces
     public class Knight : Piece
     {
         public override Tile Tile => Color == PieceColor.White ? GameManager.Instance.WhiteKnightTile : GameManager.Instance.BlackKnightTile;
-        public override List<Vector2Int> GetMovements()
+        public override List<Vector2Int> GetMovements(Piece[,] pieces)
         {
             List<Vector2Int> movements = new List<Vector2Int>();
 

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging.Abstractions;
 using Pieces;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -30,6 +29,9 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [Header("Parameters")]
     [SerializeField]
     private int _size;
+
+    [SerializeField] private Color _color1;
+    [SerializeField] private Color _color2;
 
     private Piece[,] _pieces = new Piece[8, 8];
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     void CreateBoard()
     {
+        _boardTilemap.ClearAllTiles();
         for (int i = 0; i < _size; i++)
         {
             for (int j = 0; j < _size; j++)
@@ -91,9 +94,14 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             for (int j = 0; j < _size; j++)
             {
                 Piece piece = _pieces[i, j];
-                if (piece != null) _pieceTilemap.SetTile(new Vector3Int(i, j, 0), piece.Tile);
+                if (piece != null) _pieceTilemap.SetTile(new Vector3Int(j, i, 0), piece.Tile);
             }
         }
 
+    }
+
+    void UpdateBoard()
+    {
+        
     }
 }
