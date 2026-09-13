@@ -74,9 +74,11 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         DisplayPieces();
     }
 
-    void CreateBoard()
+    public void CreateBoard()
     {
         _boardTilemap.ClearAllTiles();
+        _blackTile.color = Color.black;
+        _whiteTile.color = Color.white;
         for (int i = 0; i < _size; i++)
         {
             for (int j = 0; j < _size; j++)
@@ -100,8 +102,18 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     }
 
-    void UpdateBoard()
+    public void UpdateBoard()
     {
-        
+        _boardTilemap.ClearAllTiles();
+        _blackTile.color = _color1;
+        _whiteTile.color = _color2;
+        for (int i = 0; i < _size; i++)
+        {
+            for (int j = 0; j < _size; j++)
+            {
+                Tile tile = (i + j) % 2 == 0 ? _blackTile : _whiteTile;
+                _boardTilemap.SetTile(new Vector3Int(i, j, 0), tile);
+            }
+        }
     }
 }
