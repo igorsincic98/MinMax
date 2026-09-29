@@ -4,19 +4,20 @@ using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    [Header("Pieces Visual")] public Tile WhitePawnTile;
-    public Tile WhiteRookTile;
-    public Tile WhiteBishopTile;
-    public Tile WhiteKnightTile;
-    public Tile WhiteQueenTile;
-    public Tile WhiteKingTile;
+    [Header("Pieces Visual")]
+    public GameObject WhitePawnTile;
+    public GameObject WhiteRookTile;
+    public GameObject WhiteBishopTile;
+    public GameObject WhiteKnightTile;
+    public GameObject WhiteQueenTile;
+    public GameObject WhiteKingTile;
 
-    public Tile BlackPawnTile;
-    public Tile BlackRookTile;
-    public Tile BlackBishopTile;
-    public Tile BlackKnightTile;
-    public Tile BlackQueenTile;
-    public Tile BlackKingTile;
+    public GameObject BlackPawnTile;
+    public GameObject BlackRookTile;
+    public GameObject BlackBishopTile;
+    public GameObject BlackKnightTile;
+    public GameObject BlackQueenTile;
+    public GameObject BlackKingTile;
 
     [Header("References")]
     [SerializeField]
@@ -77,8 +78,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public void CreateBoard()
     {
         _boardTilemap.ClearAllTiles();
-        _blackTile.color = Color.black;
-        _whiteTile.color = Color.white;
+        _blackTile.color = Color.sandyBrown;
+        _whiteTile.color = Color.saddleBrown;
         for (int i = 0; i < _size; i++)
         {
             for (int j = 0; j < _size; j++)
@@ -96,7 +97,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             for (int j = 0; j < _size; j++)
             {
                 Piece piece = _pieces[i, j];
-                if (piece != null) _pieceTilemap.SetTile(new Vector3Int(j, i, 0), piece.Tile);
+                if (piece != null) Instantiate(_pieces[i,j], new Vector3Int(i, j, 0), Quaternion.identity);
             }
         }
 
@@ -115,5 +116,9 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
                 _boardTilemap.SetTile(new Vector3Int(i, j, 0), tile);
             }
         }
+    }
+
+    public void DisplayPieceMovement(Piece piece)
+    {
     }
 }

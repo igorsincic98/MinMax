@@ -7,7 +7,7 @@ namespace Pieces
     public class Rook : Piece
     {
 
-        public override Tile Tile => Color == PieceColor.White ? GameManager.Instance.WhiteRookTile : GameManager.Instance.BlackRookTile;
+        public override GameObject GameObject => Color == PieceColor.White ? GameManager.Instance.WhiteRookTile : GameManager.Instance.BlackRookTile;
         public Rook(PieceColor color) : base(color) { }
         public override List<Vector2Int> GetMovements(Piece[,] pieces)
         {

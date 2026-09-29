@@ -7,7 +7,7 @@ namespace Pieces
     public abstract class Piece
     {
         public PieceColor Color;
-        public abstract Tile Tile { get; }
+        public abstract GameObject GameObject { get; }
 
         public Vector2Int Position;
         protected Piece(PieceColor color)

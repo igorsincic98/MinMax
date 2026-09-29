@@ -6,19 +6,22 @@ namespace Pieces
 {
     public class King : Piece
     {
-        public override Tile Tile => Color == PieceColor.White ? GameManager.Instance.WhiteKingTile : GameManager.Instance.BlackKingTile;
+        public override GameObject GameObject => Color == PieceColor.White ? GameManager.Instance.WhiteKingTile : GameManager.Instance.BlackKingTile;
         public override List<Vector2Int> GetMovements(Piece[,] pieces)
         {
             List<Vector2Int> movements = new List<Vector2Int>();
 
-            movements.Add(new Vector2Int(-1, -1));
-            movements.Add(new Vector2Int(-1, 0));
-            movements.Add(new Vector2Int(-1, 1));
-            movements.Add(new Vector2Int(0, -1));
-            movements.Add(new Vector2Int(0, 1));
-            movements.Add(new Vector2Int(1, -1));
-            movements.Add(new Vector2Int(1, 0));
-            movements.Add(new Vector2Int(1, 1));
+            for (int i = Position.x - 1; i < 2; i++)
+            {
+                for (int j = Position.y - 1; j < 2; j++)
+                {
+                    Vector2Int movement = new Vector2Int(i, j);
+                    Piece otherPiece = pieces[movement.x, movement.y];
+                    if (otherPiece != null && otherPiece.Color == Color) break;
+                    movements.Add(movement);
+                    if (otherPiece != null && otherPiece.Color != Color) break;
+                }
+            }
 
             return movements;
         }

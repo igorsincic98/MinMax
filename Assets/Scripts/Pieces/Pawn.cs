@@ -6,7 +6,7 @@ namespace Pieces
 {
     public class Pawn : Piece
     {
-        public override Tile Tile => Color == PieceColor.White
+        public override GameObject GameObject => Color == PieceColor.White
             ? GameManager.Instance.WhitePawnTile
             : GameManager.Instance.BlackPawnTile;
 
