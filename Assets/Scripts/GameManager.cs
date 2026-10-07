@@ -1,4 +1,6 @@
+using System;
 using Pieces;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -20,16 +22,15 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public GameObject BlackKingTile;
 
     [Header("References")]
-    [SerializeField]
-    private Tilemap _pieceTilemap;
-
+    
     [SerializeField] private Tilemap _boardTilemap;
     [SerializeField] private Tile _blackTile;
     [SerializeField] private Tile _whiteTile;
 
     [Header("Parameters")]
-    [SerializeField]
-    private int _size;
+    
+    [SerializeField] private int _size;
+    private Vector3Int _position;
 
     [SerializeField] private Color _color1;
     [SerializeField] private Color _color2;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     void Awake()
     {
+        _position = new Vector3Int(30, -2, 0);
         _pieces = new Piece[,]
         {
             {
@@ -72,10 +74,35 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private void Start()
     {
         CreateBoard();
-        DisplayPieces();
     }
 
     public void CreateBoard()
+    {
+        _boardTilemap.ClearAllTiles();
+        _blackTile.color = Color.sandyBrown;
+        _whiteTile.color = Color.saddleBrown;
+        for (int j = 0; j < _size; j++)
+        {
+            _position += new Vector3Int(-32, 4, 0);
+            for (int i = 0; i < _size; i++)
+            {
+                _position += new Vector3Int(4, 0, 0);
+                Tile tile = (i + j) % 2 == 0 ? _whiteTile : _blackTile;
+                _boardTilemap.SetTile(new Vector3Int(j,i,0), tile);
+                Piece piece = _pieces[j, i];
+                if (piece != null)
+                {
+                    GameObject newPiece = Instantiate (piece.GameObject, _position,
+                        quaternion.identity, _boardTilemap.transform);
+                    newPiece.AddComponent<BoxCollider2D>();
+                    newPiece.AddComponent<CursorManager>();
+                }
+            }
+        }
+    }
+
+
+    public void ResetBoard()
     {
         _boardTilemap.ClearAllTiles();
         _blackTile.color = Color.sandyBrown;
@@ -84,23 +111,10 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             for (int j = 0; j < _size; j++)
             {
-                Tile tile = (i + j) % 2 == 0 ? _blackTile : _whiteTile;
+                Tile tile = (i + j) % 2 == 0 ? _whiteTile : _blackTile;
                 _boardTilemap.SetTile(new Vector3Int(i, j, 0), tile);
             }
         }
-    }
-
-    void DisplayPieces()
-    {
-        for (int i = 0; i < _size; i++)
-        {
-            for (int j = 0; j < _size; j++)
-            {
-                Piece piece = _pieces[i, j];
-                if (piece != null) Instantiate(_pieces[i,j], new Vector3Int(i, j, 0), Quaternion.identity);
-            }
-        }
-
     }
 
     public void UpdateBoard()
@@ -112,7 +126,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             for (int j = 0; j < _size; j++)
             {
-                Tile tile = (i + j) % 2 == 0 ? _blackTile : _whiteTile;
+                Tile tile = (i + j) % 2 == 0 ? _whiteTile : _blackTile;
                 _boardTilemap.SetTile(new Vector3Int(i, j, 0), tile);
             }
         }
@@ -121,4 +135,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public void DisplayPieceMovement(Piece piece)
     {
     }
+
+    
 }

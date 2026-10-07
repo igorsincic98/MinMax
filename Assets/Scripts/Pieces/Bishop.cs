@@ -65,12 +65,6 @@ namespace Pieces
                     if (otherPiece != null && otherPiece.Color != Color) break;
                 }
             }
-
-            
-
-
-
-
             return movements;
                 
         }

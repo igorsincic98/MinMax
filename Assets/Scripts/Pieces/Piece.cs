@@ -14,6 +14,7 @@ namespace Pieces
         {
             this.Color = color;
         }
+
         public abstract List<Vector2Int> GetMovements(Piece[,] pieces);
 
         public void PieceCheck (List<Vector2Int> movements, Vector2Int movement, Piece[,] pieces)
@@ -24,5 +25,7 @@ namespace Pieces
             if (otherPiece != null && otherPiece.Color != Color) return;
             
         }
+
+        
     }
 }
