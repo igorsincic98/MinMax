@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
                         quaternion.identity, _boardTilemap.transform);
                     newPiece.AddComponent<BoxCollider2D>();
                     newPiece.AddComponent<CursorManager>();
+                    newPiece.GetComponent<CursorManager>()._type = piece.ToString();
                 }
             }
         }

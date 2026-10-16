@@ -18,7 +18,7 @@ public class CursorManager : MonoBehaviour
 
     private void Start()
     {
-        _piece = GetComponent<Piece[,]>();
+        
     }
 
     private void OnMouseEnter()
@@ -32,5 +32,16 @@ public class CursorManager : MonoBehaviour
         Debug.Log("Mouse Exit");
         GetComponent<Transform>().transform.localScale -= new Vector3(_pieceDisplayScale,_pieceDisplayScale, 0);
         
+    }
+
+    private void GetMovements()
+    {
+        switch (_type)
+        {
+            case "Pieces.Rook":
+            {
+                
+            }
+        }
     }
 }
